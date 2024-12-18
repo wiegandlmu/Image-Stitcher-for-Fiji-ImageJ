@@ -74,12 +74,12 @@ The script has configurable parameters at the beginning of the code. Lines start
 
 If you use this script in your research, please cite it as follows:
 
-\[Max Wiegand] (2024). Keyence Image Stitcher for Fiji. GitHub repository, \https://github.com/wiegandlmu/ImageJ-Stitching-with-Keyence/
+\Max Wiegand (2024). Keyence Image Stitcher for Fiji. GitHub repository, https://github.com/wiegandlmu/ImageJ-Stitching-with-Keyence/
 
 
 ## License
 
-This project is licensed under the \[Your Chosen License] - see the LICENSE file for details. **Choose a license, for example, MIT, and create a LICENSE file in your repository**
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
