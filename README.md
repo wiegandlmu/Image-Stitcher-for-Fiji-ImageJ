@@ -74,8 +74,7 @@ The script has configurable parameters at the beginning of the code. Lines start
 
 If you use this script in your research, please cite it as follows:
 
-\Max Wiegand (2024). Image Stitcher for Fiji ImageJ. GitHub repository, [https://github.com/wiegandlmu/Imag-Stitcher-for-Fiji-ImageJ](https://github.com/wiegandlmu/Image-Stitcher-for-Fiji-ImageJ/)
-
+Wiegand, M. (2024). Image Stitcher for Fiji ImageJ (Version 1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.14514086
 
 ## License
 
