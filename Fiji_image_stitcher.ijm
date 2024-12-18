@@ -1,7 +1,3 @@
-// @AutoHotkey
-// Title: Keyence Image Stitcher
-// Author: [Your Name]
-// Date: [Date]
 // Description: Stitches images from Keyence microscopes using Fiji.
 
 // Configurable main path
