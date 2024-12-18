@@ -72,9 +72,9 @@ The script has configurable parameters at the beginning of the code. Lines start
 
 ## Citation
 
-If you use this script in your research, please cite it as follows:
+If you use this script in your research and publish the results, I would appreciate it if you would cite it as follows:
 
-Wiegand, M. (2024). Image Stitcher for Fiji ImageJ (Version 1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.14514086
+Wiegand, M. (2024). Keyence Image Stitcher for Fiji (Version 1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.14514086
 
 ## License
 
