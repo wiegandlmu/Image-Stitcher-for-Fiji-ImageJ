@@ -1,4 +1,4 @@
-# Keyence Image Stitcher for Fiji
+# Image Stitcher for Fiji ImageJ
 
 This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://fiji.sc/)), automates the stitching of multiple images taken with a **Keyence microscope** into a single large image. It's particularly useful for images acquired using the **Multi-Point (mosaic)** function.
 
@@ -29,7 +29,7 @@ This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://
 
 1. Open Fiji.
 2. Go to "Plugins" -> "New" -> "Macro".
-3. Copy the code from the `keyence_image_stitcher.ijm` file and paste it into the editor.
+3. Copy the code from the `Fiji_image_stitcher.ijm` file and paste it into the editor.
 4. Click "Run" in the script editor.
 5. Choose the main folder (the folder containing the `Image_XXX` subfolders) when prompted.
 
@@ -74,7 +74,7 @@ The script has configurable parameters at the beginning of the code. Lines start
 
 If you use this script in your research, please cite it as follows:
 
-\Max Wiegand (2024). Keyence Image Stitcher for Fiji. GitHub repository, https://github.com/wiegandlmu/ImageJ-Stitching-with-Keyence/
+\Max Wiegand (2024). Image Stitcher for Fiji ImageJ. GitHub repository, [https://github.com/wiegandlmu/Imag-Stitcher-for-Fiji-ImageJ](https://github.com/wiegandlmu/Image-Stitcher-for-Fiji-ImageJ/)
 
 
 ## License
