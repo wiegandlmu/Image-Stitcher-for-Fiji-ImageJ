@@ -64,7 +64,7 @@ The script has configurable parameters at the beginning of the code. Lines start
 
 **Troubleshooting**
 
-*   **"Alle Stitching-Operationen abgeschlossen" message appears immediately:** This usually means the script can't find the subfolders or images. Double-check `mainDir`, `subfolderPrefix`, `numStartPos`, `imageNameSuffix`, and `fileNamePattern`.
+*   **"All stitching operations done." message appears immediately:** This usually means the script can't find the subfolders or images. Double-check `mainDir`, `subfolderPrefix`, `numStartPos`, `imageNameSuffix`, and `fileNamePattern`.
 *   **Double or blurred edges in the stitched image:**
     1. **Verify `tileOverlap`:** Ensure it accurately reflects the actual overlap.
     2. Change `computeOverlap` to `"[Compute overlap precisely (less RAM consumption)]"`.
