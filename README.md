@@ -1,14 +1,15 @@
 # Image Stitcher for Fiji ImageJ
 
-This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://fiji.sc/)), automates the stitching of multiple images taken with a **Keyence microscope** into a single large image. It's particularly useful for images acquired using the **Multi-Point (mosaic)** function.
+This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://fiji.sc/)), automates the stitching of multiple images into a single large image. It's particularly useful for images acquired using a **microscope** with a **tiling** function.
 
 ## Features
 
-*   **Handles Keyence Default Naming:** Specifically designed to work with the default Keyence file and folder naming conventions.
-*   **Customizable:** Easily adaptable to different naming schemes, overlap settings, and stitching parameters.
+*   **Flexible Filename Handling:**  Highly adaptable to various file and folder naming conventions through a user-friendly dialog.
+*   **Customizable:** Easily adjust overlap settings and stitching parameters.
 *   **Optimized for Single Images:** Streamlined for stitching individual 2D images (no Z-stacks).
 *   **Sharp Stitching:** Offers options for precise overlap computation, resulting in sharp stitching results.
-*   **User-Friendly:** Includes detailed instructions for users with no programming experience.
+*   **User-Friendly:** Includes a configuration dialog and detailed instructions for users with no programming experience.
+*   **Automatic Grid Size Calculation**: If needed, the script can calculate an appropriate grid size.
 
 ## Prerequisites
 
@@ -16,13 +17,13 @@ This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://
 
 ## How to Use
 
-**1. Acquire Images with Your Keyence Microscope**
+**1. Acquire Images with Your Microscope**
 
 *   **Storage Format:** Save images as **TIFF** (uncompressed or LZW-compressed).
-*   **Multi-Point:** Use the **Multi-Point** function to capture multiple images for stitching.
-*   **Folder Structure:** The Keyence microscope will create subfolders named `Image_XXX` (where `XXX` is a sequential number) within a main folder.
-*   **File Naming:** Default file names are `Image_XXX_CHX.tif` (where `XXX` is the subfolder number, and `CHX` is the channel, e.g., `CH1`, `CH2`).
-*   **Overlap:** Ensure an overlap of **15-25%** between adjacent images. Adjust in the Keyence Multi-Point settings if necessary.
+*   **Tiling:** Use the **tiling** function of your microscope to capture multiple images for stitching.
+*   **Folder Structure:** The script expects images to be organized in subfolders within a main directory. Each subfolder should contain images belonging to one stitched image.
+*   **File Naming:** You can customize the expected file naming in the dialog (see step 2).
+*   **Overlap:** Ensure an overlap of **15-25%** between adjacent images. Adjust in your microscope settings if necessary.
 *   **No Z-Stacks:** This script is designed for **single images only**, not Z-stacks.
 
 **2. Install and Run the Script in Fiji**
@@ -31,50 +32,44 @@ This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://
 2. Go to "Plugins" -> "New" -> "Macro".
 3. Copy the code from the `Fiji_image_stitcher.ijm` file and paste it into the editor.
 4. Click "Run" in the script editor.
-5. Choose the main folder (the folder containing the `Image_XXX` subfolders) when prompted.
+5. A dialog box will appear. Fill in the following parameters:
+    *   **Subfolder prefix:** The prefix of your subfolder names (e.g., "XY" if your subfolders are named "XY01", "XY02", etc.).
+    *   **Filename pattern:** The pattern of your image filenames.
+        *   Use `{subfolder}` as a placeholder for the subfolder name.
+        *   Use `{i}`, `{ii}`, `{iii}`, etc. to represent the sequential image number. The number of `i`s determines the number of digits (e.g., `{i}` for 1, 2, 3..., `{ii}` for 01, 02, 03..., `{iii}` for 001, 002, 003...).
+        *   Example: `H2_Image_{subfolder}_{iiiii}_CH4` might represent files named `H2_Image_XY01_00001_CH4.tif`, `H2_Image_XY01_00002_CH4.tif`, etc.
+    *   **File extension:** The extension of your image files (e.g., ".tif").
+    *   **Overlap in %:** The percentage of overlap between adjacent tiles.
+    *   **Grid Size:** Specify the grid size (e.g., "2x3") or use "0x0" to let the script automatically determine the grid size based on the number of images.
+6. Click "OK".
+7. Choose the main folder (the folder containing the subfolders) when prompted.
 
-**3. Adjust the Script (If Necessary)**
+**3. Further Adjustments in the Script (for advanced users)**
 
-The script has configurable parameters at the beginning of the code. Lines starting with `// Configurable ...` can be adjusted:
+If needed you can directly adjust the script settings in the section "Settings for 'Grid/Collection stitching'". These parameters are usually fine and should not be changed if not needed:
 
-*   **`mainDir`:** You can hardcode the path to your main folder (not recommended) or leave it as is to choose the folder each time you run the script.
-*   **`subfolderPrefix`:** Change this if your subfolders have a different prefix than "Image\_".
-*   **`numStartPos`:** **Crucial for different subfolder naming.** This is the index (starting from 0) of the first character of the number in the subfolder name.
-    *   `Image_001`: `numStartPos = 6`
-    *   `XY01`: `numStartPos = 2`
-    *   `Acquisition_001`: `numStartPos = 10`
-*   **`imageNameSuffix`:** Change this if your images have a different file extension than ".tif".
-*   **`minImages`:** The minimum number of images required in a subfolder for processing.
-*   **`tileOverlap`:** **Very important!** Adjust this to the actual overlap percentage used during image acquisition. An incorrect value can lead to stitching errors.
-*   **`computeOverlap`:**
-    *   `"[Save computation time (but use more RAM)]"`: Faster, but might result in **less sharp** stitching.
-    *   `"[Compute overlap precisely (less RAM consumption)]"`: **Slower** but usually produces **sharper** results. Recommended if you experience blurry edges.
-*   **`fileNamePattern`:** **Crucial for different file naming.** This must **exactly** match your file naming pattern.
-    *   `Image_`: The default prefix.
-    *   `xyNum`: The subfolder number.
-    *   `{iiiii}`: Represents the five-digit sequential image number (e.g., `00001`). Adjust the number of `i`s if necessary (e.g., `{iii}` for `001`).
-    * `_CH`: The text between enumeration and channel number.
-    *   `imageNameSuffix`: The file extension.
-*   **`outputName`:** The desired name for the stitched output image.
-
-**Example `fileNamePattern` Adaptations:**
-
-*   Default Keyence (e.g., `Image_001_00001_CH1.tif`): `fileNamePattern = "Image_" + xyNum + "_{iiiii}_CH" + 1 + imageNameSuffix;`
-*   Custom Example (e.g., `MyImage_XY01_001.tif`): `fileNamePattern = "MyImage_XY" + xyNum + "_{iii}" + imageNameSuffix;`
+*   **`fusionMethod`:** Method for blending overlapping regions (default: `"[Linear Blending]"`).
+*   **`regThreshold`:** Regression threshold for the stitching algorithm.
+*   **`maxAvgThreshold`:** Maximum/average displacement threshold.
+*   **`absThreshold`:** Absolute displacement threshold.
+*   **`computeOverlap`:** This setting can be changed between `"[Save memory (but be slower)]"` which is the default and `"[Compute overlap (but use more RAM)]"`: Faster, but might result in **less sharp** stitching. `"[Compute overlap precisely (less RAM consumption)]"`: **Slower** but usually produces **sharper** results. Recommended if you experience blurry edges.
+*   **`imageOutput`:** How the output should be handled (default: `"[Fuse and display]"`).
+*   **`outputName`:** The desired name for the stitched output image (default: `"stitched_result.tif"`).
 
 **Troubleshooting**
 
-*   **"All stitching operations done." message appears immediately:** This usually means the script can't find the subfolders or images. Double-check `mainDir`, `subfolderPrefix`, `numStartPos`, `imageNameSuffix`, and `fileNamePattern`.
+*   **"All stitching operations done." message appears immediately:** This usually means the script can't find the subfolders or images. Double-check the parameters entered in the dialog, especially the "Subfolder prefix" and "Filename pattern".
 *   **Double or blurred edges in the stitched image:**
-    1. **Verify `tileOverlap`:** Ensure it accurately reflects the actual overlap.
-    2. Change `computeOverlap` to `"[Compute overlap precisely (less RAM consumption)]"`.
-    3. Check microscope calibration.
+    1. **Verify `Overlap in %`:** Ensure it accurately reflects the actual overlap.
+    2. If that does not help, you can change `computeOverlap` to `"[Compute overlap precisely (less RAM consumption)]"` in the script. This setting is slower but may result in sharper results.
 
 ## Citation
 
-If you use this script in your research and publish the results, I would appreciate it if you would cite it as follows:
+If you use this script in your research and publish the results, **please cite it as follows**:
 
-Wiegand, M. (2024). Keyence Image Stitcher for Fiji (Version 1.0.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.14514086
+Wiegand, M. (2024). Keyence Image Stitcher for Fiji (Version 1.0.1) [Software]. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14633250.svg)](https://doi.org/10.5281/zenodo.14633250)
+
+**Citing this work allows others to find and utilize this tool and acknowledges the effort put into its development.**
 
 ## License
 
@@ -82,7 +77,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-*   This script uses the "Grid/Collection stitching" plugin in Fiji.
+*   This script uses the "Grid/Collection stitching" plugin in Fiji which is based on the publication: **Preibisch, S., Saalfeld, S., & Tomancak, P. (2009). Globally optimal stitching of tiled 3D microscopic image acquisitions. Bioinformatics, 25(11), 1463–1465.** [https://imagej.net/plugins/image-stitching](https://imagej.net/plugins/image-stitching)
 *   Thanks to all contributors of the ImageJ and Fiji community.
-
----
