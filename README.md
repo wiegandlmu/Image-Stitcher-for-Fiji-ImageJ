@@ -67,7 +67,7 @@ If needed you can directly adjust the script settings in the section "Settings f
 
 If you use this script in your research and publish the results, **please cite it as follows**:
 
-Wiegand, M. (2024). Keyence Image Stitcher for Fiji (Version 1.0.1) [Software]. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14633250.svg)](https://doi.org/10.5281/zenodo.14633250)
+Wiegand, M. (2024). Keyence Image Stitcher for Fiji (Version 2.0.0) [Software]. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14633250.svg)](https://doi.org/10.5281/zenodo.14633250)
 
 **Citing this work allows others to find and utilize this tool and acknowledges the effort put into its development.**
 
