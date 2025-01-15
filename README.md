@@ -2,6 +2,8 @@
 
 This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://fiji.sc/)), automates the stitching of multiple images into a single large image. It's particularly useful for images acquired using a **microscope** with a **tiling** function.
 
+**Important:** This script requires **Fiji**, which is a distribution of ImageJ that includes many useful plugins, including the "Grid/Collection stitching" plugin used by this script. **Plain ImageJ might not have all the required plugins.** Download Fiji from [https://fiji.sc/](https://fiji.sc/).
+
 ## Features
 
 *   **Flexible Filename Handling:**  Highly adaptable to various file and folder naming conventions through a user-friendly dialog.
@@ -28,40 +30,58 @@ This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://
 
 **2. Install and Run the Script in Fiji**
 
-1. Open Fiji.
-2. Go to "Plugins" -> "New" -> "Macro".
-3. Copy the code from the `Fiji_image_stitcher.ijm` file and paste it into the editor.
-4. Click "Run" in the script editor.
-5. A dialog box will appear. Fill in the following parameters:
-    *   **Subfolder prefix:** The prefix of your subfolder names (e.g., "XY" if your subfolders are named "XY01", "XY02", etc.).
-    *   **Filename pattern:** The pattern of your image filenames.
-        *   Use `{subfolder}` as a placeholder for the subfolder name.
-        *   Use `{i}`, `{ii}`, `{iii}`, etc. to represent the sequential image number. The number of `i`s determines the number of digits (e.g., `{i}` for 1, 2, 3..., `{ii}` for 01, 02, 03..., `{iii}` for 001, 002, 003...).
-        *   Example: `H2_Image_{subfolder}_{iiiii}_CH4` might represent files named `H2_Image_XY01_00001_CH4.tif`, `H2_Image_XY01_00002_CH4.tif`, etc.
-    *   **File extension:** The extension of your image files (e.g., ".tif").
-    *   **Overlap in %:** The percentage of overlap between adjacent tiles.
-    *   **Grid Size:** Specify the grid size (e.g., "2x3") or use "0x0" to let the script automatically determine the grid size based on the number of images.
-6. Click "OK".
-7. Choose the main folder (the folder containing the subfolders) when prompted.
+1. **Download the script:**
+    *   If you are on the GitHub repository page, **scroll up to the top**.
+    *   Click the green "Code" button.
+    *   Select "Download ZIP".
+    *   Save the ZIP file to your computer and unzip it.
+2. **Open the script in Fiji:**
+    *   Open Fiji.
+    *   Go to "Plugins" -> "Macros" -> "Run..."
+    *   Navigate to the unzipped folder and select the `Fiji_image_stitcherV2.ijm` file.
+    *   Click "Open".
+3. **Configuration Dialog:**
+    *   A dialog box will appear. Fill in the following parameters:
+        *   **Subfolder prefix:** The prefix of your subfolder names (e.g., "XY" if your subfolders are named "XY01", "XY02", etc.).
+        *   **Filename pattern:** The pattern of your image filenames.
+            *   Use `{subfolder}` as a placeholder for the subfolder name.
+            *   Use `{i}`, `{ii}`, `{iii}`, etc. to represent the sequential image number. The number of `i`s determines the number of digits (e.g., `{i}` for 1, 2, 3..., `{ii}` for 01, 02, 03..., `{iii}` for 001, 002, 003...).
+            *   Example: `H2_Image_{subfolder}_{iiiii}_CH4` might represent files named `H2_Image_XY01_00001_CH4.tif`, `H2_Image_XY01_00002_CH4.tif`, etc.
+        *   **File extension:** The extension of your image files (e.g., ".tif").
+        *   **Overlap in %:** The percentage of overlap between adjacent tiles.
+        *   **Grid Size:** Specify the grid size (e.g., "2x3") or use "0x0" to let the script automatically determine the grid size based on the number of images.
+4. Click "OK".
+5. Choose the main folder (the folder containing the subfolders) when prompted.
+6. Let the script do it's job.
+7. **Finding the stitched image:**
+    *   The stitched image will be saved as `stitched_result.tif` (or the name you specified in the `outputName` variable) inside the **subfolders** that were stitched.
+    *   The stitched image will also be **displayed in Fiji**.
 
-**3. Further Adjustments in the Script (for advanced users)**
+## Troubleshooting
 
-If needed you can directly adjust the script settings in the section "Settings for 'Grid/Collection stitching'". These parameters are usually fine and should not be changed if not needed:
+*   **"All stitching operations done." message appears immediately:** This usually means the script can't find the subfolders or images. Double-check the parameters entered in the dialog, especially the "Subfolder prefix" and "Filename pattern".
+*   **Double or blurred edges in the stitched image:** Verify `Overlap in %`: Ensure it accurately reflects your actual overlap. Try different values until you get the desired results.
+
+## Further Adjustments in the Script (for advanced users)
+
+If needed, you can directly adjust the script settings. 
+
+**To make changes to the script:**
+
+1. Open the `Fiji_image_stitcherV2.ijm` file in a text editor (e.g., TextEdit on Mac, Notepad++ on Windows).
+2. Make the desired changes.
+3. Save the file.
+4. Follow steps 2-7 in the "Install and Run the Script in Fiji" section to run the modified script.
+
+These parameters are usually fine and should not be changed if not needed. Find further information on how to adjust the script here: [https://imagej.net/plugins/image-stitching](https://imagej.net/plugins/image-stitching)
 
 *   **`fusionMethod`:** Method for blending overlapping regions (default: `"[Linear Blending]"`).
 *   **`regThreshold`:** Regression threshold for the stitching algorithm.
 *   **`maxAvgThreshold`:** Maximum/average displacement threshold.
 *   **`absThreshold`:** Absolute displacement threshold.
-*   **`computeOverlap`:** This setting can be changed between `"[Save memory (but be slower)]"` which is the default and `"[Compute overlap (but use more RAM)]"`: Faster, but might result in **less sharp** stitching. `"[Compute overlap precisely (less RAM consumption)]"`: **Slower** but usually produces **sharper** results. Recommended if you experience blurry edges.
+*   **`computeOverlap`:** This setting can be changed between `"[Save memory (but be slower)]"` which is the default and `"[Save computation time (but use more RAM)]"`: Faster, but might be too much for your PC.
 *   **`imageOutput`:** How the output should be handled (default: `"[Fuse and display]"`).
 *   **`outputName`:** The desired name for the stitched output image (default: `"stitched_result.tif"`).
-
-**Troubleshooting**
-
-*   **"All stitching operations done." message appears immediately:** This usually means the script can't find the subfolders or images. Double-check the parameters entered in the dialog, especially the "Subfolder prefix" and "Filename pattern".
-*   **Double or blurred edges in the stitched image:**
-    1. **Verify `Overlap in %`:** Ensure it accurately reflects the actual overlap.
-    2. If that does not help, you can change `computeOverlap` to `"[Compute overlap precisely (less RAM consumption)]"` in the script. This setting is slower but may result in sharper results.
 
 ## Citation
 
