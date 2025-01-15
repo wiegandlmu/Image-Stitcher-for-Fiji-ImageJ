@@ -51,7 +51,7 @@ This ImageJ macro, designed for use within **Fiji** ([https://fiji.sc/](https://
         *   **Overlap in %:** The percentage of overlap between adjacent tiles.
         *   **Grid Size:** Specify the grid size (e.g., "2x3") or use "0x0" to let the script automatically determine the grid size based on the number of images.
 4. Click "OK".
-5. Choose the main folder (the folder containing the subfolders) when prompted.
+5. A new window will appear. Navigate to the main folder and select it (the folder containing the subfolders with the images).
 6. Let the script do it's job.
 7. **Finding the stitched image:**
     *   The stitched image will be saved as `stitched_result.tif` (or the name you specified in the `outputName` variable) inside the **subfolders** that were stitched.
