@@ -7,8 +7,8 @@ Dialog.addString("Unterordner-Praefix (z.B. 'XY'):", "XY");
 Dialog.addString("Dateiname-Muster (z.B. H2_Image_XY{xy}_0000{i}_CH4):", "H2_Image_XY{xy}_0000{i}_CH4");
 Dialog.addString("Dateiendung (z.B. .tif):", ".tif");
 Dialog.addString("Ueberlappung in % (z.B. 20):", "20");
-Dialog.addMessage("Grid-Groeße (z.B. 3x3). 0x0 => automatisch berechnen.");
-Dialog.addString("Grid-Größe:", "0x0");
+Dialog.addMessage("Grid-Groesse (z.B. 3x3). 0x0 => automatisch berechnen.");
+Dialog.addString("Grid-Groesse:", "0x0");
 Dialog.show();
 
 subfolderPrefix    = Dialog.getString();
@@ -121,6 +121,7 @@ function processFolder(folder) {
         "regression_threshold=" + regThreshold + " " +
         "max/avg_displacement_threshold=" + maxAvgThreshold + " " +
         "absolute_displacement_threshold=" + absThreshold + " " +
+        "subpixel_accuracy " +
         "compute_overlap " +
         "computation_parameters=[Save computation time (but use more RAM)] " +
         "image_output=[Fuse and display]"
