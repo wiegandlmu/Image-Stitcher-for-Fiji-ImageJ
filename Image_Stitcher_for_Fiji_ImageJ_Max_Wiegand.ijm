@@ -1,3 +1,30 @@
+// --------------------------------------------------------------------
+// Automated Batch Stitching Script for Fiji/ImageJ
+// Version 2.1
+// Author: Max Wiegand
+// --------------------------------------------------------------------
+
+// --------------------------------------------------
+// 0) Citation Agreement Dialog
+// --------------------------------------------------
+Dialog.create("Terms of Use - Citation Required");
+Dialog.addMessage("IMPORTANT: Terms of Use");
+Dialog.addMessage("By using this script, you agree to cite it in any resulting");
+Dialog.addMessage("publications, presentations, or other academic work.");
+Dialog.addMessage("");
+Dialog.addMessage("Please cite as:");
+Dialog.addMessage("Wiegand, M. (2025). Image Stitcher for Fiji ImageJ (Version 2.1)");
+Dialog.addMessage("[Computer software]. GitHub.");
+Dialog.addMessage("https://github.com/wiegandlmu/Image-Stitcher-for-Fiji-ImageJ");
+Dialog.addMessage("");
+Dialog.addCheckbox("I agree to cite this script in my work", false);
+Dialog.show();
+
+citationAgreed = Dialog.getCheckbox();
+if (!citationAgreed) {
+    exit("You must agree to the citation terms to use this script.");
+}
+
 // --------------------------------------------------
 // 1) Configuration Dialog
 // --------------------------------------------------
@@ -6,7 +33,6 @@ Dialog.addMessage("Please specify the following parameters:");
 Dialog.addString("Subfolder prefix (e.g. 'XY'):", "XY");
 Dialog.addString("Filename pattern (e.g. H2_Image_XY{xy}_0000{i}_CH4):", "H2_Image_XY{xy}_0000{i}_CH4");
 Dialog.addString("File extension (e.g. .tif):", ".tif");
-Dialog.addString("Overlap in % (e.g. 20):", "20");
 Dialog.addMessage("Grid size (e.g. 3x3). 0x0 => calculate automatically.");
 Dialog.addString("Grid size:", "0x0");
 Dialog.show();
@@ -14,8 +40,10 @@ Dialog.show();
 subfolderPrefix    = Dialog.getString();
 fileNamePattern    = Dialog.getString();
 fileExtension      = Dialog.getString();
-tileOverlap        = Dialog.getString();
 gridSizeInput      = Dialog.getString();
+
+// Fixed overlap at 20% (standard value for most applications)
+tileOverlap        = "20";
 
 // --------------------------------------------------
 // 2) Select Main Directory
