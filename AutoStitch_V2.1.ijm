@@ -15,7 +15,7 @@ Dialog.addMessage("");
 Dialog.addMessage("Please cite as:");
 Dialog.addMessage("Wiegand, M. (2025). Image Stitcher for Fiji ImageJ (Version 2.1)");
 Dialog.addMessage("[Computer software]. GitHub.");
-Dialog.addMessage("https://github.com/wiegandlmu/Image-Stitcher-for-Fiji-ImageJ");
+Dialog.addMessage("https://github.com/wiegandlmu/ImageJ-Fiji-Auto-Stitcher");
 Dialog.addMessage("");
 Dialog.addCheckbox("I agree to cite this script in my work", false);
 Dialog.show();
