@@ -13,7 +13,7 @@ Dialog.addMessage("By using this script, you agree to cite it in any resulting")
 Dialog.addMessage("publications, presentations, or other academic work.");
 Dialog.addMessage("");
 Dialog.addMessage("Please cite as:");
-Dialog.addMessage("Wiegand, M. (2025). Image Stitcher for Fiji ImageJ (Version 2.1)");
+Dialog.addMessage("Wiegand, M. (2025). ImageJ Fiji Auto-Stitcher (Version 2.1)");
 Dialog.addMessage("[Computer software]. GitHub.");
 Dialog.addMessage("https://github.com/wiegandlmu/ImageJ-Fiji-Auto-Stitcher");
 Dialog.addMessage("");
