@@ -1,14 +1,14 @@
 // --------------------------------------------------
-// 1) Konfigurationsdialog
+// 1) Configuration Dialog
 // --------------------------------------------------
-Dialog.create("Stitching Konfiguration");
-Dialog.addMessage("Bitte folgende Parameter angeben:");
-Dialog.addString("Unterordner-Praefix (z.B. 'XY'):", "XY");
-Dialog.addString("Dateiname-Muster (z.B. H2_Image_XY{xy}_0000{i}_CH4):", "H2_Image_XY{xy}_0000{i}_CH4");
-Dialog.addString("Dateiendung (z.B. .tif):", ".tif");
-Dialog.addString("Ueberlappung in % (z.B. 20):", "20");
-Dialog.addMessage("Grid-Groesse (z.B. 3x3). 0x0 => automatisch berechnen.");
-Dialog.addString("Grid-Groesse:", "0x0");
+Dialog.create("Stitching Configuration");
+Dialog.addMessage("Please specify the following parameters:");
+Dialog.addString("Subfolder prefix (e.g. 'XY'):", "XY");
+Dialog.addString("Filename pattern (e.g. H2_Image_XY{xy}_0000{i}_CH4):", "H2_Image_XY{xy}_0000{i}_CH4");
+Dialog.addString("File extension (e.g. .tif):", ".tif");
+Dialog.addString("Overlap in % (e.g. 20):", "20");
+Dialog.addMessage("Grid size (e.g. 3x3). 0x0 => calculate automatically.");
+Dialog.addString("Grid size:", "0x0");
 Dialog.show();
 
 subfolderPrefix    = Dialog.getString();
@@ -18,15 +18,15 @@ tileOverlap        = Dialog.getString();
 gridSizeInput      = Dialog.getString();
 
 // --------------------------------------------------
-// 2) Hauptverzeichnis auswählen
+// 2) Select Main Directory
 // --------------------------------------------------
-mainDir = getDirectory("Ordner mit '" + subfolderPrefix + "'-Unterordnern auswählen:");
+mainDir = getDirectory("Select folder containing '" + subfolderPrefix + "' subfolders:");
 if (mainDir == "") {
-    exit("Kein Verzeichnis ausgewählt. Abbruch.");
+    exit("No directory selected. Aborting.");
 }
 
 // --------------------------------------------------
-// 3) Stitching-Einstellungen
+// 3) Stitching Settings
 // --------------------------------------------------
 fusionMethod    = "[Linear Blending]";
 regThreshold    = 0.30;
@@ -34,7 +34,7 @@ maxAvgThreshold = 2.50;
 absThreshold    = 3.50;
 
 // --------------------------------------------------
-// 4) Alle passenden Unterordner verarbeiten
+// 4) Process All Matching Subfolders
 // --------------------------------------------------
 allEntries = getFileList(mainDir);
 for (i = 0; i < allEntries.length; i++) {
@@ -46,24 +46,24 @@ for (i = 0; i < allEntries.length; i++) {
     }
 }
 
-print("Alle Stitching-Operationen abgeschlossen.");
+print("All stitching operations completed.");
 
 // ====================================================================
-// Funktion zum Verarbeiten eines Unterordners
+// Function to Process a Subfolder
 // ====================================================================
 function processFolder(folder) {
     print("");
-    print("=== Starte Stitching für: " + folder + " ===");
+    print("=== Starting stitching for: " + folder + " ===");
     
-    // 1) Dateiliste abrufen und sortieren
+    // 1) Get file list and sort
     list = getFileList(folder);
     Array.sort(list);
     
-    // 2) XY-Nummer aus Ordnername extrahieren
+    // 2) Extract XY number from folder name
     folderName = File.getName(folder);
     xyNum = substring(folderName, lengthOf(subfolderPrefix));
     
-    // 3) Relevante Bilder zählen
+    // 3) Count relevant images
     imageCount = 0;
     for (j = 0; j < list.length; j++) {
         if (endsWith(list[j], fileExtension)) {
@@ -72,13 +72,13 @@ function processFolder(folder) {
     }
     
     if (imageCount < 2) {
-        print("Zu wenige Bilder in: " + folder + ". Überspringe.");
+        print("Too few images in: " + folder + ". Skipping.");
         return;
     }
     
-    print("Gefundene Bilder: " + imageCount);
+    print("Images found: " + imageCount);
     
-    // 4) Grid-Größe bestimmen
+    // 4) Determine grid size
     gridX = 0;
     gridY = 0;
     if (indexOf(gridSizeInput, "x") != -1) {
@@ -90,23 +90,23 @@ function processFolder(folder) {
     }
     
     if (isNaN(gridX) || isNaN(gridY) || gridX <= 0 || gridY <= 0) {
-        // Automatisch berechnen
+        // Calculate automatically
         gridSize = Math.ceil(Math.sqrt(imageCount));
         gridX = gridSize;
         gridY = gridSize;
-        print("Grid-Größe automatisch: " + gridX + "x" + gridY);
+        print("Grid size automatically set to: " + gridX + "x" + gridY);
     } else {
-        print("Gewählte Grid-Größe: " + gridX + "x" + gridY);
+        print("Selected grid size: " + gridX + "x" + gridY);
     }
     
-    // 5) Dateiname-Muster anpassen
+    // 5) Adjust filename pattern
     filePattern = replace(fileNamePattern, "\\{xy\\}", xyNum);
     filePattern = replace(filePattern, "\\{i\\}", "{i}");
     filePattern = filePattern + fileExtension;
     
-    print("Dateiname-Muster: " + filePattern);
+    print("Filename pattern: " + filePattern);
     
-    // 6) Grid/Collection Stitching ausführen
+    // 6) Execute Grid/Collection Stitching
     run("Grid/Collection stitching",
         "type=[Grid: snake by rows] " +
         "order=[Right & Down                ] " +
@@ -127,16 +127,16 @@ function processFolder(folder) {
         "image_output=[Fuse and display]"
     );
     
-    // 7) Ergebnis speichern
+    // 7) Save result
     if (nImages > 0) {
-        // Sicherstellen, dass das Bild in RGB ist
+        // Ensure image is in RGB
         if (bitDepth() != 24) {
             run("RGB Color");
         }
         saveAs("Tiff", folder + File.separator + "stitched_result.tif");
         run("Close All");
-        print("Stitching erfolgreich: " + folder);
+        print("Stitching successful: " + folder);
     } else {
-        print("Stitching fehlgeschlagen: " + folder);
+        print("Stitching failed: " + folder);
     }
 }
