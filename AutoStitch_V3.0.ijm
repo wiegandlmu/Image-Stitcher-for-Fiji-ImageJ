@@ -29,10 +29,6 @@ if (!citationAgreed) {
 // 1) Configuration Dialog
 // --------------------------------------------------
 Dialog.create("Stitching Configuration");
-Dialog.addMessage("NEUE FUNKTION: Automatische Erkennung von Dateinamen-Mustern");
-Dialog.addMessage("Das Script erkennt automatisch verschiedene Präfixe und findet");
-Dialog.addMessage("die aufsteigenden Nummern in deinen Bildern.");
-Dialog.addMessage("");
 Dialog.addString("File extension (e.g. .tif):", ".tif");
 Dialog.addMessage("Grid size (e.g. 3x3). 0x0 => calculate automatically.");
 Dialog.addString("Grid size:", "0x0");
