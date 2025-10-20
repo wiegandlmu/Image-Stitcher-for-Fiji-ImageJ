@@ -16,7 +16,7 @@ Dialog.addMessage("Please cite as:");
 Dialog.addMessage("Wiegand, M. (2025). ImageJ Fiji Auto-Stitcher (Version 3.0)");
 Dialog.addMessage("[Computer software].");
 Dialog.addMessage("GitHub. https://github.com/wiegandlmu/ImageJ-Fiji-Auto-Stitcher");
-Dialog.addMessage("Zenodo. https://doi.org/10.5281/zenodo.17273821");
+Dialog.addMessage("Zenodo. https://doi.org/10.5281/zenodo.17401384");
 Dialog.addMessage("");
 Dialog.addCheckbox("I agree to cite this script in my work", false);
 Dialog.show();
