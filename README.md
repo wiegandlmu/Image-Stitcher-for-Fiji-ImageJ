@@ -118,7 +118,7 @@ MainFolder/
 2. **Open the script in Fiji**:
    - Open Fiji
    - Go to "Plugins" → "Macros" → "Run..."
-   - Navigate to the unzipped folder and select the `AutoStitch.ijm` file
+   - Navigate to the unzipped folder and select the `AutoStitch_V3.0.ijm` file
    - Click "Open"
 
 3. **Accept Citation Terms**:
