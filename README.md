@@ -13,7 +13,7 @@ If you use this script in your research and publish the results, please cite it 
 ```
 Wiegand, M. (2025). ImageJ Fiji Auto-Stitcher (Version 3.0) [Computer software]. 
 GitHub. https://github.com/wiegandlmu/ImageJ-Fiji-Auto-Stitcher
-Zenodo. https://doi.org/10.5281/zenodo.17273821
+Zenodo. https://doi.org/10.5281/zenodo.17401384
 ```
 
 **Recommended citation style for BibTeX:**
